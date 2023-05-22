@@ -29,4 +29,14 @@
         app:layout_constraintStart_toStartOf="@+id/tv_counter"
         app:layout_constraintTop_toBottomOf="@+id/tv_counter" />
 
+    <Button
+        android:id="@+id/btnLongTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Long Running Task"
+        app:layout_constraintEnd_toEndOf="@+id/btnIncreaseCounter"
+        app:layout_constraintStart_toStartOf="@+id/btnIncreaseCounter"
+        app:layout_constraintTop_toBottomOf="@+id/btnIncreaseCounter" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
