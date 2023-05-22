@@ -22,12 +22,7 @@ plugins {
 ext {
     activityVersion = '1.4.0'
 
-
-
     coroutines = '1.5.2'
-    lifecycleVersion = '2.4.0'
-
-
 
 }
 
