@@ -8,6 +8,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
@@ -51,6 +52,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun useCorountineScope() {
         CoroutineScope(Dispatchers.IO).launch {
+            withContext(Dispatchers.Main){
+                Log.d("THREADNAME",Thread.currentThread().name) // This will run on main thread
+            }
             Log.d("THREADNAME", Thread.currentThread().name)
         }
     }
