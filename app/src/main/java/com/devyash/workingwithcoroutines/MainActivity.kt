@@ -9,9 +9,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.yield
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
+
+    private val TAG:String = "SUSPENDINGPRAC"
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
@@ -30,6 +33,13 @@ class MainActivity : AppCompatActivity() {
             useCorountineScope()
         }
 
+        CoroutineScope(Dispatchers.Main).launch {
+            task1()
+        }
+
+        CoroutineScope(Dispatchers.Main).launch {
+            task2()
+        }
 
     }
 
@@ -57,6 +67,19 @@ class MainActivity : AppCompatActivity() {
             }
             Log.d("THREADNAME", Thread.currentThread().name)
         }
+    }
+
+    //Suspending funtions
+    suspend fun task1(){
+        Log.d(TAG,"Starting Task 1")
+        yield()
+        Log.d(TAG,"Ending Task 1")
+    }
+
+    suspend fun task2(){
+        Log.d(TAG,"Starting Task 2")
+        yield()
+        Log.d(TAG,"Ending Task 2")
     }
 
     override fun onDestroy() {
