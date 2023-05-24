@@ -7,6 +7,7 @@ import com.devyash.workingwithcoroutines.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -44,6 +45,10 @@ class MainActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             printFollowers()
+        }
+
+        CoroutineScope(Dispatchers.IO).launch{
+            printIntaFollowers()
         }
 
     }
@@ -99,6 +104,19 @@ class MainActivity : AppCompatActivity() {
     private suspend fun getFollowers(): Int {
         delay(1000)
         return 100
+    }
+
+    private suspend fun printIntaFollowers(){
+        val deferredJob = GlobalScope.async(Dispatchers.IO) {
+            getInstaFollowers()
+        }
+        val res = deferredJob.await()
+        Log.d(TAG,"INSTA FOLLOWERS:- ${res.toString()}")
+    }
+
+    private suspend fun getInstaFollowers():Int{
+        delay(1000)
+        return 1000
     }
 
     override fun onDestroy() {
