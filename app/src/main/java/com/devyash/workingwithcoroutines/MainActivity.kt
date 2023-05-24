@@ -7,6 +7,7 @@ import com.devyash.workingwithcoroutines.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
@@ -39,6 +40,10 @@ class MainActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.Main).launch {
             task2()
+        }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            printFollowers()
         }
 
     }
@@ -80,6 +85,20 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG,"Starting Task 2")
         yield()
         Log.d(TAG,"Ending Task 2")
+    }
+
+    private suspend fun printFollowers(){
+        var followers = 0
+        val job = CoroutineScope(Dispatchers.IO).launch{
+            followers = getFollowers()
+        }
+        job.join()
+        Log.d(TAG,followers.toString())
+    }
+
+    private suspend fun getFollowers(): Int {
+        delay(1000)
+        return 100
     }
 
     override fun onDestroy() {
