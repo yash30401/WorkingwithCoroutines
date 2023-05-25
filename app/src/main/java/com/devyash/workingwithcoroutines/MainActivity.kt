@@ -124,10 +124,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private suspend fun jobHierarchy(){
-        val parentJob = GlobalScope.launch(Dispatchers.IO) {
+        val parentJob = GlobalScope.launch(Dispatchers.Main) {
             Log.d(TAG,"PARENT:- $coroutineContext")
 
-            val childJob = launch {
+            val childJob = launch(Dispatchers.IO) {
                 Log.d(TAG,"CHILD:- $coroutineContext")
             }
         }
