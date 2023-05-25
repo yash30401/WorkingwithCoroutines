@@ -51,6 +51,10 @@ class MainActivity : AppCompatActivity() {
             printIntaFollowers()
         }
 
+        CoroutineScope(Dispatchers.IO).launch {
+            jobHierarchy()
+        }
+
     }
 
 
@@ -117,6 +121,16 @@ class MainActivity : AppCompatActivity() {
     private suspend fun getInstaFollowers():Int{
         delay(1000)
         return 1000
+    }
+
+    private suspend fun jobHierarchy(){
+        val parentJob = GlobalScope.launch(Dispatchers.IO) {
+            Log.d(TAG,"PARENT:- $coroutineContext")
+
+            val childJob = launch {
+                Log.d(TAG,"CHILD:- $coroutineContext")
+            }
+        }
     }
 
     override fun onDestroy() {
