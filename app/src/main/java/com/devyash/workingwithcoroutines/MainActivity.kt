@@ -131,6 +131,22 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG,"CHILD:- $coroutineContext")
             }
         }
+
+
+        val parentJob2 = GlobalScope.launch(Dispatchers.Main) {
+            Log.d("JOBHIERARCHY","Parent Job Started")
+
+            val childJob = launch(Dispatchers.IO) {
+                Log.d("JOBHIERARCHY","Child Job Started")
+                delay(5000)
+                Log.d("JOBHIERARCHY","Child Job Ended")
+            }
+            delay(3000)
+            Log.d("JOBHIERARCHY","Parent Job Ended")
+        }
+
+        parentJob2.join()
+        Log.d("JOBHIERARCHY","Parent Job Completed")
     }
 
     override fun onDestroy() {
