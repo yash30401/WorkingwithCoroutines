@@ -59,6 +59,10 @@ class MainActivity : AppCompatActivity() {
             jobCancellation()
         }
 
+        CoroutineScope(Dispatchers.IO).launch {
+            withContextPrac()
+        }
+
     }
 
 
@@ -163,11 +167,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
         delay(100)
         Log.d("CANCEL", "Canceling Job")
         parentJob.cancel()
         parentJob.join()
         Log.d("CANCEL", "Parent Completed")
+    }
+
+    private suspend fun withContextPrac(){
+        Log.d("WITHCONTEXT","First")
+        withContext(Dispatchers.IO){
+            delay(1000)
+            Log.d("WITHCONTEXT","Second")
+        }
+        Log.d("WITHCONTEXT","Third")
     }
 
     override fun onDestroy() {
